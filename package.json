@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "description": "Convert stories into Stackbit models and presets",
   "keywords": [
-    "storybook-addons", "storybook-addons"
+    "storybook-addons",
+    "storybook-addons"
   ],
   "repository": {
     "type": "git",
@@ -81,8 +82,22 @@
   "storybook": {
     "displayName": "Stackbit",
     "supportedFrameworks": [
-      "react", "vue", "angular", "web-components", "ember", "html", "svelte", "preact", "react-native"
+      "react",
+      "vue",
+      "angular",
+      "web-components",
+      "ember",
+      "html",
+      "svelte",
+      "preact",
+      "react-native"
     ],
     "icon": "https://user-images.githubusercontent.com/321738/63501763-88dbf600-c4cc-11e9-96cd-94adadc2fd72.png"
+  },
+  "dependencies": {
+    "@storybook/design-system": "^7.9.0",
+    "@types/react": "^18.0.21",
+    "file-saver": "^2.0.5",
+    "yaml": "^2.1.3"
   }
 }
