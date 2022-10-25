@@ -44,7 +44,6 @@ function convert(argTypes) {
                 name,
                 type: typeName,
                 unsuppported: true,
-                // type: JSON.stringify(argType),
             };
         }
 
@@ -53,7 +52,6 @@ function convert(argTypes) {
             type: getFieldType(name, typeName, value, control),
             required: required || undefined,
             options: options || value,
-            // type: JSON.stringify(argType),
         }
 
         if (description) {

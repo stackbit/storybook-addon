@@ -1,8 +1,8 @@
-import React, { useCallback, useMemo, useState, useEffect } from "react";
+import React, { useCallback, useMemo, useState, useEffect } from 'react';
 import YAML from 'yaml';
 import FileSaver from 'file-saver';
-import { useArgTypes, useStorybookState } from "@storybook/api";
-import { AddonPanel, Button } from "@storybook/components";
+import { useArgTypes, useStorybookState } from '@storybook/api';
+import { AddonPanel, Button } from '@storybook/components';
 
 import convertArgs from './utils/convertArgs';
 import generateModel from './utils/generateModel';
@@ -59,12 +59,12 @@ export const Panel = (props) => {
   const presetsJSON = useMemo(() => JSON.stringify(presets, null, 2), [presets]);
 
   const handleModelOnExportClick = useCallback(() => {
-    const blob = new Blob([modelDataYAML], { type: "text/plain;charset=utf-8" });
+    const blob = new Blob([modelDataYAML], { type: 'text/plain;charset=utf-8' });
     FileSaver.saveAs(blob, `${name}.yaml`);
   }, [modelDataYAML]);
 
   const handlePresetsOnExportClick = useCallback(() => {
-    const blob = new Blob([presetsJSON], { type: "text/plain;charset=utf-8" });
+    const blob = new Blob([presetsJSON], { type: 'text/plain;charset=utf-8' });
     FileSaver.saveAs(blob, `${name}.json`);
   }, [presetsJSON]);
 
