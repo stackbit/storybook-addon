@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState, useEffect } from 'react';
-import YAML from 'yaml';
+// import YAML from 'yaml';
 import FileSaver from 'file-saver';
 import { useArgTypes, useStorybookState } from '@storybook/api';
 import { AddonPanel, Button } from '@storybook/components';
@@ -55,7 +55,8 @@ export const Panel = (props) => {
       })
   }, [name, argTypes, state.storiesHash]);
 
-  const modelDataYAML = useMemo(() => YAML.stringify(model), [model]);
+  // const modelDataYAML = useMemo(() => YAML.stringify(model), [model]);
+  const modelDataYAML = useMemo(() => JSON.stringify(model, null, 2), [model]);
   const presetsJSON = useMemo(() => JSON.stringify(presets, null, 2), [presets]);
 
   const handleModelOnExportClick = useCallback(() => {
