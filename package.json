@@ -80,7 +80,7 @@
     "access": "public"
   },
   "storybook": {
-    "displayName": "Stackbit",
+    "displayName": "Stackbit Models/Presets Generator",
     "supportedFrameworks": [
       "react",
       "vue",
