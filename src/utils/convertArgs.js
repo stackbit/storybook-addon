@@ -6,7 +6,7 @@ function isSupportedType(type, control) {
     const { type: controlType } = control || {};
     const { name, value } = type || {};
 
-    if ( name === 'array') {
+    if (['array', 'object'].includes(name)) {
         return false;
     }
 
@@ -30,7 +30,7 @@ function isSupportedType(type, control) {
 }
 
 function getFieldData(rawField) {
-    
+
 }
 
 function convert(argTypes) {

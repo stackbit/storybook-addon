@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useState, useEffect } from 'react';
-// import YAML from 'yaml';
+import YAML from 'js-yaml';
+
 import FileSaver from 'file-saver';
 import { useArgTypes, useStorybookState } from '@storybook/api';
 import { AddonPanel, Button } from '@storybook/components';
@@ -11,6 +12,11 @@ import FieldsList from './components/FieldsList';
 import Snippets from './components/Snippets';
 
 import Logo from './components/Logo';
+
+function generateFile(filename, data) {
+  const blob = new Blob([data], { type: 'text/plain;charset=utf-8' });
+  FileSaver.saveAs(blob, filename);
+}
 
 function getComponentData(state) {
   if (!state.storiesConfigured) {
@@ -44,29 +50,26 @@ export const Panel = (props) => {
   const { name, children } = componentData;
 
   useEffect(() => {
-      const convertedFields = convertArgs(argTypes);
-      const model = generateModel(name, convertedFields.filter((field) => !field.unsuppported));
-      const presets = generatePresets(name, convertedFields, children, state.storiesHash);
+    const convertedFields = convertArgs(argTypes);
+    const model = generateModel(name, convertedFields.filter((field) => !field.unsuppported));
+    const presets = generatePresets(name, convertedFields, children, state.storiesHash);
 
-      setResult({
-        convertedFields,
-        model,
-        presets,
-      })
+    setResult({
+      convertedFields,
+      model,
+      presets,
+    })
   }, [name, argTypes, state.storiesHash]);
 
-  // const modelDataYAML = useMemo(() => YAML.stringify(model), [model]);
-  const modelDataYAML = useMemo(() => JSON.stringify(model, null, 2), [model]);
+  const modelDataYAML = useMemo(() => YAML.dump(model, { skipInvalid: true }), [model]);
   const presetsJSON = useMemo(() => JSON.stringify(presets, null, 2), [presets]);
 
   const handleModelOnExportClick = useCallback(() => {
-    const blob = new Blob([modelDataYAML], { type: 'text/plain;charset=utf-8' });
-    FileSaver.saveAs(blob, `${name}.yaml`);
+    generateFile(`${name}.yaml`, modelDataYAML);
   }, [modelDataYAML]);
 
   const handlePresetsOnExportClick = useCallback(() => {
-    const blob = new Blob([presetsJSON], { type: 'text/plain;charset=utf-8' });
-    FileSaver.saveAs(blob, `${name}.json`);
+    generateFile(`${name}.json`, presetsJSON);
   }, [presetsJSON]);
 
   return (
