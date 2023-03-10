@@ -1,6 +1,6 @@
 {
   "name": "@stackbit/storybook-addon",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A storybook addons that lets you generate Stackbit models and presets from your components and stories.",
   "keywords": [
     "storybook-addons",

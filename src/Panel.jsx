@@ -40,6 +40,10 @@ function getComponentData(state) {
   };
 }
 
+function generateModelData(model) {
+  return `module.exports = ${JSON.stringify(model, null, 2)}`;
+}
+
 export const Panel = (props) => {
   const [componentData, setComponentData] = useState({});
   const [{ model = {}, presets = [], convertedFields = [] }, setResult] = useState({});
@@ -61,12 +65,13 @@ export const Panel = (props) => {
     })
   }, [name, argTypes, state.storiesHash]);
 
-  const modelDataYAML = useMemo(() => YAML.dump(model, { skipInvalid: true }), [model]);
+
+  const modelDataJS = useMemo(() => generateModelData(model), [model]);
   const presetsJSON = useMemo(() => JSON.stringify(presets, null, 2), [presets]);
 
   const handleModelOnExportClick = useCallback(() => {
-    generateFile(`${name}.yaml`, modelDataYAML);
-  }, [modelDataYAML]);
+    generateFile(`${name}.js`, modelDataJS);
+  }, [modelDataJS]);
 
   const handlePresetsOnExportClick = useCallback(() => {
     generateFile(`${name}.json`, presetsJSON);
@@ -81,7 +86,7 @@ export const Panel = (props) => {
         gap: '1em',
       }}>
         <Logo />
-        <Snippets models={modelDataYAML} presets={presets} />
+        <Snippets models={modelDataJS} presets={presets} />
         <div style={{ display: 'inline-flex', gap: 8 }}>
           <Button primary={true} small={true} onClick={handleModelOnExportClick}>Download Model</Button>
           <Button secondary={true} small={true} onClick={handlePresetsOnExportClick}>Download Presets</Button>
