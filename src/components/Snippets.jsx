@@ -9,7 +9,7 @@ const Snippets = (props) => {
     const handleTabChange = (index) => setSelectedTabIndex(index);
 
     const renderModels = useCallback(() => {
-        return (<Highlight language="yaml">{models}</Highlight>)
+        return (<Highlight language="json">{models}</Highlight>)
     }, [models]);
     
     const renderPresets = useCallback(() => {
@@ -21,7 +21,7 @@ const Snippets = (props) => {
             <ButtonToggle
                 titles={[
                     { title: 'Model' },
-                    { title: `Presets  (${presets.presets?.length})` },
+                    // { title: `Presets  (${presets.presets?.length})` },
                 ]}
                 appearance="tab"
                 selectedIndex={selectedTabIndex}
@@ -37,7 +37,7 @@ const Snippets = (props) => {
                 ]}
             />
             )}
-            {selectedTabIndex === 1 && (
+            {/* {selectedTabIndex === 1 && (
                 <CodeSnippets
                     snippets={[
 
@@ -48,7 +48,7 @@ const Snippets = (props) => {
                         }
                     ]}
                 />
-            )}
+            )} */}
         </div>
     )
 }

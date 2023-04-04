@@ -1,5 +1,4 @@
 import React, { useCallback, useMemo, useState, useEffect } from 'react';
-import YAML from 'js-yaml';
 
 import FileSaver from 'file-saver';
 import { useArgTypes, useStorybookState } from '@storybook/api';
@@ -50,32 +49,36 @@ export const Panel = (props) => {
   const argTypes = useArgTypes();
   const state = useStorybookState();
 
-  useEffect(() => setComponentData(getComponentData(state)), [state]);
+  useEffect(() => {
+    setComponentData(getComponentData(state));
+  }, [state.storyId, state.storiesConfigured]);
+
   const { name, children } = componentData;
 
   useEffect(() => {
     const convertedFields = convertArgs(argTypes);
     const model = generateModel(name, convertedFields.filter((field) => !field.unsuppported));
-    const presets = generatePresets(name, convertedFields, children, state.storiesHash);
+    // const presets = generatePresets(name, convertedFields, children, state.storiesHash);
 
     setResult({
       convertedFields,
       model,
-      presets,
+      // presets,
     })
-  }, [name, argTypes, state.storiesHash]);
+    // }, [name, argTypes, state.storiesHash]);
+  }, [name, argTypes]);
 
 
   const modelDataJS = useMemo(() => generateModelData(model), [model]);
-  const presetsJSON = useMemo(() => JSON.stringify(presets, null, 2), [presets]);
+  // const presetsJSON = useMemo(() => JSON.stringify(presets, null, 2), [presets]);
 
   const handleModelOnExportClick = useCallback(() => {
     generateFile(`${name}.js`, modelDataJS);
   }, [modelDataJS]);
 
-  const handlePresetsOnExportClick = useCallback(() => {
-    generateFile(`${name}.json`, presetsJSON);
-  }, [presetsJSON]);
+  // const handlePresetsOnExportClick = useCallback(() => {
+  //   generateFile(`${name}.json`, presetsJSON);
+  // }, [presetsJSON]);
 
   return (
     <AddonPanel {...props}>
@@ -89,7 +92,7 @@ export const Panel = (props) => {
         <Snippets models={modelDataJS} presets={presets} />
         <div style={{ display: 'inline-flex', gap: 8 }}>
           <Button primary={true} small={true} onClick={handleModelOnExportClick}>Download Model</Button>
-          <Button secondary={true} small={true} onClick={handlePresetsOnExportClick}>Download Presets</Button>
+          {/* <Button secondary={true} small={true} onClick={handlePresetsOnExportClick}>Download Presets</Button> */}
         </div>
         <FieldsList fields={convertedFields} />
       </div>
